@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::get('dashboard', 'DashboardController@index');
@@ -27,3 +27,6 @@ Route::get('delete-category/{id}', 'CategoryController@destroy');
 Route::get('get-product-form', 'ProductController@create');
 Route::post('post-product-form', 'ProductController@store');
 Route::get('all-products', 'ProductController@index');
+Route::get('edit-product/{id}', 'ProductController@edit');
+Route::post('post-product-edit-form/{id}', 'ProductController@update');
+Route::get('delete-product/{id}', 'ProductController@destroy');

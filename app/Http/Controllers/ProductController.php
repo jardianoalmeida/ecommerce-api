@@ -83,9 +83,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        $categories = Category::all();
+        return view('product.edit', compact('product', 'categories'));
     }
 
     /**
@@ -95,9 +97,33 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->name = $request->input('productName');
+        $product->price = $request->input('productPrice');
+        $product->discount = $request->input('productDiscount');
+        $product->is_hot_product = $request->input('isHotProduct') ? true : false;
+        $product->is_new_arrival = $request->input('isNewArrival') ? true : false;
+        $product->category_id = $request->input('category');
+        $product->user_id = 0;
+        if($product->save()){
+            $photo = $request->file('productPhoto');
+            if($photo != null){
+                $ext = $photo->getClientOriginalExtension();
+                $fileName = rand(10000, 50000) . '.' . $ext;
+                if($ext == 'jpg' || $ext == 'png'){
+                    if($photo->move(public_path(), $fileName)){
+                        $product = Product::find($product->id);
+                        $product->photo = url('/') . '/' . $fileName;
+                        $product->save();
+                    }
+                }
+
+            }
+            return redirect()->back()->with('success', 'Product information updated successfully!');
+        }
+        return redirect()->back()->with('failed', 'Product information could not update!');
     }
 
     /**
@@ -106,8 +132,12 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        if(Product::destroy($id))
+        {
+            return redirect()->back()->with('deleted', 'Deleted successfully');
+        }
+        return redirect()->back()->with('delete-failed', 'Could not delete');
     }
 }
