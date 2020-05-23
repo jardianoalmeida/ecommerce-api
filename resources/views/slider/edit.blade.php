@@ -1,82 +1,56 @@
 @extends('layout')
 @section('dashboard-content')
+    <h1> Update slider form</h1>
 
-    @if(Session::get('deleted'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="gone">
-            <strong> {{ Session::get('deleted') }} </strong>
+    @if(Session::get('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="gone">
+            <strong> {{ Session::get('success') }} </strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
 
-    @if(Session::get('delete-failed'))
+    @if(Session::get('failed'))
         <div class="alert alert-warning alert-dismissible fade show" role="alert" id="gone">
-            <strong> {{ Session::get('delete-failed') }} </strong>
+            <strong> {{ Session::get('failed') }} </strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
 
-    <div class="card mb-3">
-        <div class="card-header">
-            <i class="fas fa-table"></i>
-            All Categories </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th> Slider title </th>
-                        <th> Slider message </th>
-                        <th> Slider Image </th>
-                        <th>Actions </th>
-                    </tr>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <th> Slider title </th>
-                        <th> Slider message </th>
-                        <th> Slider Image </th>
-                        <th>Actions </th>
-                    </tr>
-                    </tfoot>
-                    <tbody>
-
-                    @foreach($sliders as $slider)
-
-                        <tr>
-                            <td> {{ $slider->title }} </td>
-                            <td> {!! $slider->message !!} </td>
-                            <td> <img src="{{ $slider->image_url }}" width="100" height="100"></td>
-                            <td>
-                                <a href="{{ URL::to('edit-slider') }}/{{ $slider->id }}" class="btn btn-outline-primary btn-sm"> Edit </a>
-                                |
-                                <a href="{{ URL::to('delete-slider') }}/{{ $slider->id }}" class="btn btn-outline-danger btn-sm" onclick="checkDelete()"> Delete </a>
-                            </td>
-
-                        </tr>
-
-
-                    @endforeach
-
-
-
-                    </tbody>
-                </table>
-            </div>
+    <form action="{{ URL::to('post-slider-edit-form') }}/{{$slider->id}}" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group">
+            <label for="exampleInputEmail1"> Slider title</label>
+            <input type="text" class="form-control" value="{{ $slider->title }}" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter slider title" name="sliderTitle">
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-    </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1"> Slider message </label>
+            <textarea id="editor1" name="sliderMessage">{!! $slider->message !!}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1"> Slider Image </label>
+            <input type="file" class="form-control" name="sliderImage" onchange="loadPhoto(event)">
+        </div>
+
+        <div class="form-group">
+            <img id="photo" height="100" width="100">
+        </div>
+        <button type="submit" class="btn btn-primary"> Update </button>
+    </form>
 
     <script>
-        function checkDelete() {
-            var check = confirm('Are you sure you want to Delete this?');
-            if(check){
-                return true;
-            }
-            return false;
+        function loadPhoto(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('photo');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
         }
     </script>
 
