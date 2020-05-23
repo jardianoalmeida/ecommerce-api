@@ -29,12 +29,14 @@
                     <thead>
                     <tr>
                         <th> Category Name </th>
+                        <th> Category Icon </th>
                         <th>Actions </th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th> Category Name </th>
+                        <th> Category Icon </th>
                         <th>Actions </th>
                     </tr>
                     </tfoot>
@@ -44,6 +46,7 @@
 
                         <tr>
                             <td> {{ $category->name }} </td>
+                            <td> <img src="{{ $category->icon }}" width="100" height="100"></td>
                             <td>
                                 <a href="{{ URL::to('edit-category') }}/{{ $category->id }}" class="btn btn-outline-primary btn-sm"> Edit </a>
                                 |

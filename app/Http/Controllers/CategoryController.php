@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -24,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -35,7 +36,26 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category();
+        $category->name = $request->input('categoryName');
+        $category->icon = "";
+        $category->user_id = 0;
+        if($category->save()){
+            $photo = $request->file('categoryIcon');
+            if($photo != null){
+                $ext = $photo->getClientOriginalExtension();
+                $fileName = rand(10000, 50000) . '.' . $ext;
+                if($ext == 'jpg' || $ext == 'png'){
+                    if($photo->move(public_path(), $fileName)){
+                        $category = Category::find($category->id);
+                        $category->icon = url('/') . '/' . $fileName;
+                        $category->save();
+                    }
+                }
+            }
+            return redirect()->back()->with('success', 'Saved successfully!');
+        }
+        return redirect()->back()->with('failed', 'Could not save!');
     }
 
     /**

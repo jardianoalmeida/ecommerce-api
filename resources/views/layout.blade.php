@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Ecommerce Admin - Dashboard</title>
+    <title> eCommerce Admin - Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ URL::to('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -28,7 +28,7 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">Ecommerce Admin</a>
+    <a class="navbar-brand mr-1" href="index.html"> eCommerce Dashboard</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -110,29 +110,7 @@
             </div>
         </li>
 
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-folder"></i>
-                <span> Blog post</span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
 
-                <a class="dropdown-item" href="{{ URL::to('get-blog-post-form') }}"> Create Blog post</a>
-                <a class="dropdown-item" href="{{ URL::to('all-blog-posts') }}"> All Blog Posts </a>
-
-            </div>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
     </ul>
 
     <div id="content-wrapper">
@@ -186,23 +164,23 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="{{ URL::to('public/vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ URL::to('public/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ URL::to('vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ URL::to('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="{{ URL::to('public/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+<script src="{{ URL::to('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
 <!-- Page level plugin JavaScript-->
-<script src="{{ URL::to('public/vendor/chart.js/Chart.min.js') }}"></script>
-<script src="{{ URL::to('public/vendor/datatables/jquery.dataTables.js') }}"></script>
-<script src="{{ URL::to('public/vendor/datatables/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ URL::to('vendor/chart.js/Chart.min.js') }}"></script>
+<script src="{{ URL::to('vendor/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ URL::to('vendor/datatables/dataTables.bootstrap4.js') }}"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="{{ URL::to('public/js/sb-admin.min.js') }}"></script>
+<script src="{{ URL::to('js/sb-admin.min.js') }}"></script>
 
 <!-- Demo scripts for this page-->
-<script src="{{ URL::to('public/js/demo/datatables-demo.js') }}"></script>
-<script src="{{ URL::to('public/js/demo/chart-area-demo.js') }}"></script>
+<script src="{{ URL::to('js/demo/datatables-demo.js') }}"></script>
+<script src="{{ URL::to('js/demo/chart-area-demo.js') }}"></script>
 
 <script>
     // Replace the <textarea id="editor1"> with a CKEditor
