@@ -30,3 +30,6 @@ Route::get('all-products', 'ProductController@index');
 Route::get('edit-product/{id}', 'ProductController@edit');
 Route::post('post-product-edit-form/{id}', 'ProductController@update');
 Route::get('delete-product/{id}', 'ProductController@destroy');
+Route::get('get-slider-form', 'SliderController@create');
+Route::post('post-slider-form', 'SliderController@store');
+Route::get('all-sliders', 'SliderController@index');
