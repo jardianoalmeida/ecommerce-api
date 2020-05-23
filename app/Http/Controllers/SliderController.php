@@ -124,5 +124,5 @@ class SliderController extends Controller
         }
         return redirect()->back()->with('delete-failed', 'Could not delete');
     }
-    
+
 }
