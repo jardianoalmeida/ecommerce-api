@@ -21,3 +21,6 @@ Route::get('dashboard', 'DashboardController@index');
 Route::post('post-category-form', 'CategoryController@store');
 Route::get('create-category', 'CategoryController@create');
 Route::get('all-categories', 'CategoryController@index');
+Route::get('edit-category/{id}', 'CategoryController@edit');
+Route::post('update-category/{id}', 'CategoryController@update');
+Route::get('delete-category/{id}', 'CategoryController@destroy');
