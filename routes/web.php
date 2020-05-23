@@ -24,3 +24,6 @@ Route::get('all-categories', 'CategoryController@index');
 Route::get('edit-category/{id}', 'CategoryController@edit');
 Route::post('update-category/{id}', 'CategoryController@update');
 Route::get('delete-category/{id}', 'CategoryController@destroy');
+Route::get('get-product-form', 'ProductController@create');
+Route::post('post-product-form', 'ProductController@store');
+Route::get('all-products', 'ProductController@index');

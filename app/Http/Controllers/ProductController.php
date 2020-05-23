@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('product.index', compact('products'));
     }
 
     /**
@@ -24,7 +26,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('product.create', compact('categories'));
     }
 
     /**
@@ -35,7 +38,32 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $product->name = $request->input('productName');
+        $product->price = $request->input('productPrice');
+        $product->discount = $request->input('productDiscount');
+        $product->photo = "";
+        $product->is_hot_product = $request->input('isHotProduct') ? true : false;
+        $product->is_new_arrival = $request->input('isNewArrival') ? true : false;
+        $product->category_id = $request->input('category');
+        $product->user_id = 0;
+        if($product->save()){
+            $photo = $request->file('productPhoto');
+            if($photo != null){
+                $ext = $photo->getClientOriginalExtension();
+                $fileName = rand(10000, 50000) . '.' . $ext;
+                if($ext == 'jpg' || $ext == 'png'){
+                    if($photo->move(public_path(), $fileName)){
+                        $product = Product::find($product->id);
+                        $product->photo = url('/') . '/' . $fileName;
+                        $product->save();
+                    }
+                }
+
+            }
+            return redirect()->back()->with('success', 'Product information inserted successfully!');
+        }
+        return redirect()->back()->with('failed', 'Product information could not be inserted!');
     }
 
     /**
