@@ -54,6 +54,7 @@
                             <td> {{ $product->name }} </td>
                             <td> {{ $product->price }} </td>
                             <td> {{ $product->discount }} </td>
+                            <td> {{ $product->name }} </td>
                             <td> product category </td>
                             <td> <img src="{{ $product->photo }}" width="100" height="100"></td>
                             <td>
